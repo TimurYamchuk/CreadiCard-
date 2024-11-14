@@ -32,15 +32,12 @@ class Program
         }
 
         var card = new CreditCard(cardNumber, ownerName, expirationDate, pin, creditLimit);
-        var notificationService = new NotificationService();
-        var accountManager = new AccountManager(card, notificationService);
 
-        accountManager.DisplayCardInfo();
-        accountManager.PerformDeposit(200);
-        accountManager.PerformWithdraw(50);
-        accountManager.PerformWithdraw(300);
-        accountManager.CheckBalanceGoal(500);
-        accountManager.UpdatePin(5678);
-        accountManager.DisplayCardInfo();
+        card.DisplayCardInfo();
+        card.Deposit(200);
+        card.Withdraw(50);
+        card.Withdraw(300);
+        card.UpdatePin(5678);
+        card.DisplayCardInfo();
     }
 }
