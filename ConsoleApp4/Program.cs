@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 class Program
 {
@@ -10,14 +10,26 @@ class Program
         Console.Write("Введите имя владельца: ");
         string ownerName = Console.ReadLine();
 
+        DateTime expirationDate;
         Console.Write("Введите дату истечения (ГГГГ-ММ-ДД): ");
-        DateTime expirationDate = DateTime.Parse(Console.ReadLine());
+        while (!DateTime.TryParse(Console.ReadLine(), out expirationDate))
+        {
+            Console.Write("Неверная дата. Введите в формате ГГГГ-ММ-ДД: ");
+        }
 
+        int pin;
         Console.Write("Установите ПИН-код (4 цифры): ");
-        int pin = int.Parse(Console.ReadLine());
+        while (!int.TryParse(Console.ReadLine(), out pin) || pin < 1000 || pin > 9999)
+        {
+            Console.Write("ПИН-код должен быть 4-значным числом: ");
+        }
 
+        decimal creditLimit;
         Console.Write("Введите кредитный лимит: ");
-        decimal creditLimit = decimal.Parse(Console.ReadLine());
+        while (!decimal.TryParse(Console.ReadLine(), out creditLimit) || creditLimit < 0)
+        {
+            Console.Write("Лимит должен быть положительным числом: ");
+        }
 
         var card = new CreditCard(cardNumber, ownerName, expirationDate, pin, creditLimit);
         var notificationService = new NotificationService();
