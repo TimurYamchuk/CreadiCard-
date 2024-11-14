@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 public class CreditCard
 {
@@ -22,31 +22,40 @@ public class CreditCard
     public void Deposit(decimal amount)
     {
         Balance += amount;
+        Console.WriteLine($"Депозит: ${amount}. Текущий баланс: ${Balance}");
     }
 
-    public bool Withdraw(decimal amount)
+    public void Withdraw(decimal amount)
     {
         if (Balance + CreditLimit >= amount)
         {
             Balance -= amount;
             if (Balance < 0) Balance -= Balance * InterestRate;
-            return true;
+            Console.WriteLine($"Снятие: ${amount}. Текущий баланс: ${Balance}");
         }
-        return false;
+        else
+        {
+            Console.WriteLine("Недостаточно средств для снятия.");
+        }
     }
 
-    public bool UpdatePin(int newPin)
+    public void UpdatePin(int newPin)
     {
         if (newPin != Pin)
         {
             Pin = newPin;
-            return true;
+            Console.WriteLine("ПИН-код обновлен.");
         }
-        return false;
+        else
+        {
+            Console.WriteLine("Новый ПИН-код не должен совпадать с текущим.");
+        }
     }
 
-    public string GetCardInfo() =>
-        $"\n--- Данные карты ---\nНомер: {CardNumber}\nВладелец: {OwnerName}\nСрок действия: {ExpirationDate.ToShortDateString()}\nБаланс: ${Balance}\nЛимит: ${CreditLimit}";
+    public void DisplayCardInfo()
+    {
+        Console.WriteLine($"\n--- Данные карты ---\nНомер: {CardNumber}\nВладелец: {OwnerName}\nСрок действия: {ExpirationDate.ToShortDateString()}\nБаланс: ${Balance}\nЛимит: ${CreditLimit}");
+    }
 
     public bool IsExpirationSoon() => (ExpirationDate - DateTime.Now).TotalDays <= 30;
 }
